@@ -5,6 +5,8 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require("multer");
+const cors = require('cors'); 
+
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
@@ -13,7 +15,7 @@ const path = require("path");
 
 dotenv.config();
 
-const port = process.env.PORT || 8801; 
+const port = process.env.PORT || 8800; 
 
 mongoose.connect(
   process.env.MONGO_DB,
@@ -36,6 +38,8 @@ app.get("*", function (request, response) {
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+app.use(cors()); 
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
